@@ -1,6 +1,7 @@
 import {useMemo} from "react";
-import {EllipseCurve, TubeGeometry, Vector3, CatmullRomCurve3, Matrix4} from "three";
+import {EllipseCurve, Vector3, CatmullRomCurve3, Matrix4} from "three";
 import Electron from "./Electron.jsx";
+import {Line} from "@react-three/drei";
 
 const EllipseOrbit = ({
 												ellipseXRadius = 3,
@@ -9,6 +10,7 @@ const EllipseOrbit = ({
 												angleY = Math.PI / 2,
 												angleZ = Math.PI / 2,
 											}) => {
+
 	const curve = useMemo(() => {
 		return new EllipseCurve(
 			0, 0,
@@ -28,19 +30,11 @@ const EllipseOrbit = ({
 		return points.map(p => p.applyMatrix4(rotationMatrix))
 	}, [angleX, angleY, angleZ, curve]);
 
-	const path = useMemo(() => {
-		return new CatmullRomCurve3(curve3D)
-	}, [curve3D])
-
-	const tubeGeometry = useMemo(() => {
-		return new TubeGeometry(path, 150, 0.03, 8, true);
-	}, [path]);
+	const path = useMemo(() => new CatmullRomCurve3(curve3D), [curve3D])
 
 	return (
 		<group>
-			<mesh geometry={tubeGeometry}>
-				<meshStandardMaterial color={'#03b4b4'} metalness={0.3} roughness={0.5} emissive={'#04b7b7'} emissiveIntensity={0.2} />
-			</mesh>
+			<Line points={curve3D} lineWidth={2} color={'#03b4b4'} transparent={true} opacity={0.4} />
 			<Electron path={path} orbitRadius={Math.max(ellipseXRadius, ellipseYRadius)} />
 			<Electron path={path} orbitRadius={Math.max(ellipseXRadius, ellipseYRadius)} offset={0.5} />
 		</group>

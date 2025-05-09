@@ -9,7 +9,7 @@ const Electron = ({path, orbitRadius = 3, offset = 0}) => {
 
 	useFrame(({clock}) => {
 		const t = clock.getElapsedTime()
-		const pulse = (Math.sin(t * 4) + 1) / 2
+		const pulse = (Math.sin(t * 2) + 1) / 2
 
 		sphereRef.current.material.emissiveIntensity = offset + pulse * (orbitRadius / 10 + random)
 		const position = path.getPointAt((t * speedFactor / orbitRadius + offset) % 1);
@@ -18,7 +18,7 @@ const Electron = ({path, orbitRadius = 3, offset = 0}) => {
 
 	return (
 		<mesh ref={sphereRef}>
-			<sphereGeometry args={[0.3, 16, 16]} />
+			<sphereGeometry args={[0.3, 20, 20]} />
 			<meshStandardMaterial color={'#0357b7'} metalness={1} roughness={0.5} emissive={'#0359b0'} emissiveIntensity={0.7}  />
 		</mesh>
 	)
