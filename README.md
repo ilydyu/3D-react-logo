@@ -1,5 +1,5 @@
-# 3D React logo
+# Atom logo 3D
 
-The logo of the React is an atom with orbitals and electrons, it's the same thing, but in 3D
+This is a representation of an atom with orbitals and electrons in 3D space.
 
 ![Showcase](./public/showcase.webm)
